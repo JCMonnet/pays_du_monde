@@ -72,19 +72,25 @@ if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 3) {
 // }
 
 //requête totaux footer tab
+
 if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] && $_GET['choixregion'] == 0) {
     $req = $BDD->prepare('SELECT libelle_continent AS nom,SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM `t_continents` INNER JOIN t_pays ON (t_continents.id_continent=t_pays.continent_id) WHERE t_continents.id_continent=' . $_GET['choixcontinent'] . ' GROUP BY libelle_continent');
-    $req->execute();
-    $totaux = $req->fetchAll();
+
 }
 if (isset($_GET['choixregion']) && $_GET['choixregion']) {
     $req = $BDD->prepare('SELECT libelle_region AS nom,SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM `t_regions` INNER JOIN t_pays ON (t_regions.id_region=t_pays.region_id) WHERE t_regions.id_region=' . $_GET['choixregion'] . ' GROUP BY libelle_region ');
-    $req->execute();
-    $totaux = $req->fetchAll();
+
 }
 
 if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 0) {
     $req = $BDD->prepare('SELECT libelle_continent AS nom, SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM t_continents INNER JOIN t_pays ON t_continents.id_continent=t_pays.continent_id WHERE t_continents.id_continent=' . $_GET['choixcontinent'] . ' GROUP BY libelle_continent');
-    $req->execute();
-    $totaux = $req->fetchAll();
+
 }
+
+if (!isset($_GET['choixcontinent']) || $_GET['choixcontinent'] == 0) {
+    $req = $BDD->prepare('SELECT "Monde" AS nom,SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM `t_continents` INNER JOIN t_pays ON (t_continents.id_continent=t_pays.continent_id) ');
+
+}
+
+$req->execute();
+$totaux = $req->fetchAll();
