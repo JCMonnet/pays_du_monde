@@ -2,7 +2,7 @@
 // relie à la BD
 try {
     $BDD = new PDO(
-        'mysql:host=localhost:3308;dbname=pays;charset=utf8', 'Userpays', '111111'
+        'mysql:host=localhost:3306;dbname=pays;charset=utf8', 'Userpays', '111111'
     );} catch (PDOException $e) {
     echo 'Échec lors de la connexion : ' . $e->getMessage();
 }
@@ -71,7 +71,7 @@ if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 3) {
 //     $datas = $req->fetchAll();
 // }
 
-//requête totaux footer tab
+//requête totaux footer tab (par continent/region/accueil et monde)
 
 if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] && $_GET['choixregion'] == 0) {
     $req = $BDD->prepare('SELECT libelle_continent AS nom,SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM `t_continents` INNER JOIN t_pays ON (t_continents.id_continent=t_pays.continent_id) WHERE t_continents.id_continent=' . $_GET['choixcontinent'] . ' GROUP BY libelle_continent');
@@ -82,15 +82,20 @@ if (isset($_GET['choixregion']) && $_GET['choixregion']) {
 
 }
 
-if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 0) {
-    $req = $BDD->prepare('SELECT libelle_continent AS nom, SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM t_continents INNER JOIN t_pays ON t_continents.id_continent=t_pays.continent_id WHERE t_continents.id_continent=' . $_GET['choixcontinent'] . ' GROUP BY libelle_continent');
-
-}
-
+//pour obtenir total monde à l'accueil ou si select monde (si aucun choix continent ou si = à 0)
 if (!isset($_GET['choixcontinent']) || $_GET['choixcontinent'] == 0) {
     $req = $BDD->prepare('SELECT "Monde" AS nom,SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM `t_continents` INNER JOIN t_pays ON (t_continents.id_continent=t_pays.continent_id) ');
 
 }
-
+//optimisation éxecuter qu'une fois la requete une fois le if correspondant trouvé
 $req->execute();
 $totaux = $req->fetchAll();
+
+//correction pb affichage si nouvelle recherche continent
+// if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 1 && $_GET['choixregion']!=1)
+// if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 1 && $_GET['choixregion']!=2)
+// if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 1 && $_GET['choixregion']!=3)
+// if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 1 && $_GET['choixregion']!=4)
+// if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 1 && $_GET['choixregion']!=5){
+//     $_GET(['choixregion']);
+// }
