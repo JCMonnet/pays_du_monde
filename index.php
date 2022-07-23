@@ -22,7 +22,7 @@ include 'connexion.php';
             <!--le onchange this form submit qui permet d'afficher id continent dans l'url à chaque fois qu'on selectionne qqch dans le select-->
             <select id="selectContinent" class="w-60 p-3" name="choixcontinent" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
                 <!-- rajoute en dur "Monde" comme 1ere ligne du select pour éviter le problème de Afrique que je pouvais pas selectionner-->
-                <option value=0>Monde</option>
+                <option value=0>Continents</option>
                 <?php foreach ($datasCont as $dc) { ?>
                     <?php if ($dc["id_continent"] != $idContinent) : ?>
                         <option value="<?php echo $dc["id_continent"] ?>"><?php echo $dc["libelle_continent"] ?></option>
