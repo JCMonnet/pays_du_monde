@@ -95,5 +95,6 @@ include 'connexion.php';
     <footer>
         <p> La plus grande menace à notre planète est la conviction que <span>quelqu’un d’autre</span> va la sauver. </p>
     </footer>
+    <script src="app.js"></script>
 </body>
 </html>
