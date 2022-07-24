@@ -98,6 +98,7 @@ if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 1 && ($_GET['ch
     $req->execute();
     $datas = $req->fetchAll();
 }
+
 //Amerique latine et caraibes
 if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 2  && ($_GET['choixregion'] == 1 || $_GET['choixregion'] == 2 || $_GET['choixregion'] == 3 || $_GET['choixregion'] == 4 || $_GET['choixregion'] == 5 || $_GET['choixregion'] == 8 || $_GET['choixregion'] == 9 || $_GET['choixregion'] == 10 || $_GET['choixregion'] == 11 || $_GET['choixregion'] == 12 || $_GET['choixregion'] == 13 || $_GET['choixregion'] == 14 || $_GET['choixregion'] == 15 || $_GET['choixregion'] == 16 || $_GET['choixregion'] == 17 || $_GET['choixregion'] == 18 || $_GET['choixregion'] == 19 || $_GET['choixregion'] == 20)) {
     $req = $BDD->prepare('SELECT id_region,libelle_region AS "nom",SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM `t_regions` INNER JOIN t_pays ON (t_regions.id_region=t_pays.region_id) WHERE t_regions.continent_id=' . $_GET['choixcontinent'] . ' GROUP BY libelle_region ');

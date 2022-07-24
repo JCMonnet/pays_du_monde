@@ -93,8 +93,7 @@ include 'connexion.php';
             </table>
     </main>
     <footer>
-        <h2>made by <span>JC'Stats_Company<span></h2>
+        <h2>La plus grande menace à notre planète est la conviction que <span>quelqu’un d’autre</span> va la sauver.</h2>
     </footer>
 </body>
-
 </html>
