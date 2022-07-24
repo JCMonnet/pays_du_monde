@@ -1,0 +1,14 @@
+nom site
+statPopMonde
+
+mdp site
+5^JsOgiB)GVISSdDVTVY
+
+nom BDD
+pays    //   id19313357_pays
+
+user BDD
+Userpays // id19313357_userpays      
+
+mdp BDD
+j3p9]]LZi~>dz_m4

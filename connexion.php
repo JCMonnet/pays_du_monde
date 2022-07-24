@@ -2,9 +2,9 @@
 // relie à la BD
 try {
     $BDD = new PDO(
-        'mysql:host=localhost:3306;dbname=pays;charset=utf8',
-        'Userpays',
-        '111111'
+        'mysql:host=localhost;dbname=id19313357_pays;charset=utf8',
+        'id19313357_userpays',
+        'j3p9]]LZi~>dz_m4'
     );
 } catch (PDOException $e) {
     echo 'Échec lors de la connexion : ' . $e->getMessage();
