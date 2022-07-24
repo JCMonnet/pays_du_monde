@@ -31,7 +31,6 @@ include 'connexion.php';
                     <?php endif; ?>
                 <?php } ?>
             </select>
-            <img src="https://thumbs.dreamstime.com/z/population-du-monde-13912340.jpg" alt="">
             <select id="selectRegion" class="w-60 p-3" name="choixregion" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
                 <option value=0>Régions</option>
                 <?php foreach ($RegionsSelect as $rs) { ?>
@@ -46,8 +45,8 @@ include 'connexion.php';
     </header>
 
     <main>
-            <table class="table" class="mt-5">
-                <thead  class="text-primary">
+            <table class="table table-striped table-dark" class="mt-5">
+                <thead  class="text-warning bg-dark">
                     <tr>
                         <th scope="col">Pays</th>
                         <th scope="col">Population totale (en milliers)</th>
@@ -65,13 +64,13 @@ include 'connexion.php';
                         <tr>
                             <th scope="row" class="text-light bg-dark"><?= $data["nom"] ?></th>
                             <td><?= round($data["population_pays"], 1) ?></td>
-                            <td class="text-light bg-dark"><?= round($data["taux_natalite_pays"], 1) ?></td>
+                            <td><?= round($data["taux_natalite_pays"], 1) ?></td>
                             <td><?= round($data["esperance_vie_pays"], 1) ?></td>
-                            <td class="text-light bg-dark"><?= round($data["taux_mortalite_pays"], 1) ?></td>
+                            <td><?= round($data["taux_mortalite_pays"], 1) ?></td>
                             <td><?= round($data["taux_mortalite_infantile_pays"], 1) ?></td>
-                            <td class="text-light bg-dark"><?= round($data["nombre_enfants_par_femme_pays"], 1) ?></td>
+                            <td><?= round($data["nombre_enfants_par_femme_pays"], 1) ?></td>
                             <td><?= round($data["taux_croissance_pays"], 1) ?></td>
-                            <td class="text-light bg-dark"><?= round($data["population_plus_65_pays"], 1) ?></td>
+                            <td><?= round($data["population_plus_65_pays"], 1) ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -92,9 +91,6 @@ include 'connexion.php';
                 </tfooter>
             </table>
     </main>
-    <footer>
-        <p> La plus grande menace à notre planète est la conviction que <span>quelqu’un d’autre</span> va la sauver. </p>
-    </footer>
     <script src="app.js"></script>
 </body>
 </html>

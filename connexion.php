@@ -2,9 +2,9 @@
 // relie à la BD
 try {
     $BDD = new PDO(
-        'mysql:host=localhost;dbname=id19313357_pays;charset=utf8',
-        'id19313357_userpays',
-        'j3p9]]LZi~>dz_m4'
+        'mysql:host=localhost;dbname=pays;charset=utf8',
+        'Userpays',
+        '111111'
     );
 } catch (PDOException $e) {
     echo 'Échec lors de la connexion : ' . $e->getMessage();
@@ -174,9 +174,10 @@ if (isset($_GET['choixcontinent']) && $_GET['choixcontinent'] == 6  && ($_GET['c
     $req->execute();
     $totaux = $req->fetchAll();
 }
-// // correction bug pour afficher pays des caraibes
+//  correction bug pour afficher pays des caraibes
 if (isset($_GET['choixregion']) && $_GET['choixregion']==13 && isset($_GET['choixcontinent']) && $_GET['choixcontinent']==2) {
     $req = $BDD->prepare('SELECT libelle_pays AS "nom",SUM(population_pays) AS population_pays,AVG(taux_natalite_pays) AS taux_natalite_pays,AVG(taux_mortalite_pays) AS taux_mortalite_pays,AVG(esperance_vie_pays) AS esperance_vie_pays,AVG(taux_mortalite_infantile_pays) AS taux_mortalite_infantile_pays,AVG(nombre_enfants_par_femme_pays) AS nombre_enfants_par_femme_pays,AVG(taux_croissance_pays)AS taux_croissance_pays ,AVG(population_plus_65_pays) AS population_plus_65_pays FROM `t_regions` INNER JOIN t_pays ON (t_regions.id_region=t_pays.region_id) WHERE t_regions.id_region=' . $_GET['choixregion'] . ' GROUP BY libelle_pays ');
     $req->execute();
     $datas = $req->fetchAll();
 }
+
